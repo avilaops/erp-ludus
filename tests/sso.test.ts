@@ -82,6 +82,6 @@ test("token sem assinatura (alg none) devolve null", () => {
 test("loginUrl aponta para o Auth central com app e returnTo", () => {
   assert.equal(
     loginUrl("http://localhost:3020", "/parametros"),
-    "https://auth.avilaops.com/login?app=erp&returnTo=http%3A%2F%2Flocalhost%3A3020%2Fparametros",
+    "https://auth.avilaops.com/login?app=erp-ludus&returnTo=http%3A%2F%2Flocalhost%3A3020%2Fparametros",
   );
 });

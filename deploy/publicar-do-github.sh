@@ -4,7 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-REPO="${REPO:-avilaops/ERP}"
+REPO="${REPO:-avilaops/erp-ludus}"
 HEAD="$(git rev-parse HEAD)"
 BRANCH="$(git branch --show-current)"
 

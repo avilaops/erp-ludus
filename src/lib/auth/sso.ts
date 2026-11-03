@@ -6,7 +6,7 @@ export const SSO_ISSUER = "auth.avilaops.com";
 export const SSO_LOGIN_URL = "https://auth.avilaops.com/login";
 export const SSO_LOGOUT_URL = "https://auth.avilaops.com/api/auth/logout";
 /** Id of this app in the central auth registry. */
-export const SSO_APP_ID = "erp";
+export const SSO_APP_ID = "erp-ludus";
 
 export type SsoUser = {
   email: string;

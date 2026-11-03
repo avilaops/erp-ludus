@@ -1,0 +1,33 @@
+services:
+  web:
+    image: sha256:04ee0db415c56372833704a379100fce3a3604624556c0c23720243896dfb454
+    container_name: erp-ludus
+    restart: unless-stopped
+    env_file: /opt/erp/.env
+    environment:
+      APP_URL: https://ludus.avilaops.com
+      PORT: "3140"
+      HOSTNAME: 0.0.0.0
+      GIT_SHA: ${GIT_SHA:?Informe o commit do pacote}
+      BUILT_AT: ${BUILT_AT:?Informe a data do build}
+      ERP_PADES_TLS_CA_FILE: /run/secrets/pades-ca.pem
+    ports:
+      - 127.0.0.1:3150:3140
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - ${LUDUS_RELEASE:?Informe o diretorio do runtime}:/app:ro
+      - /opt/erp/pades/tls/ca.pem:/run/secrets/pades-ca.pem:ro
+    tmpfs:
+      - /tmp
+    networks:
+      - erp
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3140/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+networks:
+  erp:
+    external: true
+    name: erp_default

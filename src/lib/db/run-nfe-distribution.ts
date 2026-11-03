@@ -6,6 +6,8 @@ import type { Send } from "@/lib/fiscal/channel";
 import { DISTRIBUTION_ACTION, distributionEnvelope, distributionUrl, parseDistributionResponse } from "@/lib/fiscal/distribution";
 
 export async function runNfeDistribution(now: Date, key: () => Buffer, send: Send, conn: Queryable): Promise<{ queried: boolean; imported: number; failed: number }> {
+  // ERP Next owns the fiscal cursor when legacy distribution is disabled.
+  if (process.env.ERP_NFE_DISTRIBUTION_ENABLED?.trim() === "0") return { queried: false, imported: 0, failed: 0 };
   const state = await distributionStanding(conn);
   if (state.nextQueryAt.getTime() > now.getTime()) return { queried: false, imported: 0, failed: 0 };
   const [settings, sealed] = await Promise.all([loadFiscalSettings(conn), loadSealedCertificate(conn)]);

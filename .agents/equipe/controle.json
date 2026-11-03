@@ -125,8 +125,21 @@
       "title": "Padronizar consultas do ERP para 3.000 registros",
       "owner": null,
       "status": "em-revisao",
-      "acceptance": ["Clientes, pedidos, produtos e fornecedores consultados no PostgreSQL com busca, filtros, ordenacao e paginacao comuns", "Dez a cem itens por pagina, salto direto e criterios ativos removiveis", "Mobile e paisagem mantem operacoes, abas, filtros, registros e paginador sem sobreposicao", "Revisao de publicacao mostra efeitos por produto e recusa rascunho alterado", "Suite, build e telas aprovados no GitHub antes da conclusao"],
-      "evidence": ["docs/superpowers/specs/2026-10-18-consultas-em-escala-design.md", "docs/superpowers/plans/2026-10-18-consultas-em-escala.md", "docs/revisao-telas/consultas-em-escala.md", "787 testes locais aprovados sem falhas ou pulos; lint, tipos, git diff --check e build de producao aprovados", "30 combinacoes locais aprovadas em 360x640, 390x844, 430x932, 956x440, 1366x768 e 1440x900", "Lighthouse local mediano: desempenho 94, TBT 93,5 ms e resposta inicial 63 ms"],
+      "acceptance": [
+        "Clientes, pedidos, produtos e fornecedores consultados no PostgreSQL com busca, filtros, ordenacao e paginacao comuns",
+        "Dez a cem itens por pagina, salto direto e criterios ativos removiveis",
+        "Mobile e paisagem mantem operacoes, abas, filtros, registros e paginador sem sobreposicao",
+        "Revisao de publicacao mostra efeitos por produto e recusa rascunho alterado",
+        "Suite, build e telas aprovados no GitHub antes da conclusao"
+      ],
+      "evidence": [
+        "docs/superpowers/specs/2026-10-18-consultas-em-escala-design.md",
+        "docs/superpowers/plans/2026-10-18-consultas-em-escala.md",
+        "docs/revisao-telas/consultas-em-escala.md",
+        "787 testes locais aprovados sem falhas ou pulos; lint, tipos, git diff --check e build de producao aprovados",
+        "30 combinacoes locais aprovadas em 360x640, 390x844, 430x932, 956x440, 1366x768 e 1440x900",
+        "Lighthouse local mediano: desempenho 94, TBT 93,5 ms e resposta inicial 63 ms"
+      ],
       "next": "Enviar o modulo completo ao GitHub, aguardar CI obrigatorio e revisar os artefatos de telas antes do merge."
     },
     {
@@ -418,6 +431,23 @@
           "at": "2026-10-24",
           "status": "em-revisao",
           "note": "Consulta de CNPJ adicionada ao novo fornecedor e build aprovado."
+        }
+      ]
+    },
+    {
+      "id": "T-20261103-avl320-bloqueio-coleta-legada",
+      "title": "Desativar distribuição de NF-e no legado para preservar consumidor canônico no ERP Next",
+      "owner": null,
+      "status": "concluida",
+      "acceptance": "Distribuição automática e manual bloqueada no legado antes do banco, certificado e rede; demais rotinas preservadas; cursor intacto; runtime saudável.",
+      "evidence": "Correção a0f43f824e9d54636a8638a614de5f17b531a4f8; pacote e produção 7144f17234d3199e3a9fb591b8e3dcee08a63a11. CI https://github.com/avilaops/erp-ludus/actions/runs/41568481039 aprovado. Build local aprovado e identidade do pacote conferida. Contêiner healthy; health público Ludus e ERP Next HTTP 200. ERP_NFE_DISTRIBUTION_ENABLED=0 e ERP_ROTINAS sem override. Guarda compilada em dois chunks. Cursor legado preservado em zero, last_queried_at e last_code nulos. Nenhuma coleta ou manifestação real foi disparada nesta correção. Lint e testes funcionais não executados conforme fase de construção rápida do AGENTS.md.",
+      "next": "AVL-320 continua dependendo do aceite da primeira coleta pelo painel autenticado do ERP Next. A correção do legado não comprova esse aceite.",
+      "blocker": "",
+      "history": [
+        {
+          "at": "2026-11-03T02:54:00Z",
+          "status": "concluida",
+          "note": "Novo runtime publicado com flag específica de distribuição desligada; saúde e cursor conferidos."
         }
       ]
     }
